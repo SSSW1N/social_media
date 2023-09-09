@@ -8,18 +8,16 @@ from user.user_api import user_router
 app = FastAPI(docs_url='/')
 
 # Регистрация компонентов
+app.include_router(user_router)
+app.include_router(posts_router)
 app.include_router(photo_router)
 app.include_router(comment_router)
-app.include_router(posts_router)
-app.include_router(user_router)
+
 
 # Добавление ссылки для открытия локальных файлов
 app.mount(path='/media', app=StaticFiles(directory='media'))
 
 
-@app.get('/hello')
-async def hello():
-    return {'message': 'Hello world'}
 
 
 
