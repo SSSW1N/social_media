@@ -10,7 +10,7 @@ class User(Base):
     name = Column(String)
     surname = Column(String)
     email = Column(String)
-    phone_number =  Column(String)
+    phone_number = Column(String)
     city = Column(String)
     profile_photo = Column(String)
     password = Column(String)

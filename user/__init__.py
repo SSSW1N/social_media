@@ -1,17 +1,24 @@
 from pydantic import BaseModel
-from typing import Optional
 
-class RegisterModel(BaseModel):
+# Валидатор регистрации в аккаунт
+class RegisterUserModel(BaseModel):
     name: str
-    first_name: str
+    surname: str
     phone_number: int
     e_mail: str
+    city: str
     password: str
 
-class ChangeInfoModel(BaseModel):
+# Валидатор входа в аккаунт
+class LoginUserModel(BaseModel):
+    user_email: str
+    password: str
+
+
+
+# Валидатор изменения данных пользователя
+class EditUserModel(BaseModel):
     user_id: int
-    new_name: Optional[str]
-    new_first_name: Optional[str]
-    new_phone_number: Optional[int]
-    new_email: Optional[str]
-    new_password: Optional[str]
+    edit_data: str
+    new_data: str
+
