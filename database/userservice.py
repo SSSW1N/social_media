@@ -14,7 +14,7 @@ def register_user_db(name, surname, email, phone_number, city, password):
         return False
 
     new_user = User(name=name, surname=surname, email=email, phone_number=phone_number,
-                    city=city, password=password, reg_date=datetime.now())
+                    city=city, password=password, reg_time=datetime.now())
 
     db.add(new_user)
     db.commit()
@@ -22,10 +22,10 @@ def register_user_db(name, surname, email, phone_number, city, password):
     return 'Пользователь успешно зарегистрирован'
 
 # Вход в аккаунт
-def login_get_db(email, password):
+def login_get_db(user_email, password):
     db = next(get_db())
 
-    cheker = db.query(User).filter_by(email=email).first()
+    cheker = db.query(User).filter_by(email=user_email).first()
 
     if cheker:
         if cheker.password == password:

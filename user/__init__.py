@@ -5,7 +5,7 @@ class RegisterUserModel(BaseModel):
     name: str
     surname: str
     phone_number: int
-    e_mail: str
+    email: str
     city: str
     password: str
 

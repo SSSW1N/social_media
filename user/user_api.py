@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 from user import RegisterUserModel, EditUserModel, LoginUserModel
+from database.userservice import login_get_db, register_user_db, get_exact_user_db, get_all_users_db
 
 # Создать компонент
 user_router = APIRouter(prefix='/user', tags=['Управление пользователями'])
@@ -8,19 +9,38 @@ user_router = APIRouter(prefix='/user', tags=['Управление пользо
 # Запрос на вход в аккаунт
 @user_router.post('/login')
 async def login_user(data: LoginUserModel):
-    pass
+    result = login_get_db(**data.model_dump())
+
+    return {'status': 1, 'message': result}
 
 @user_router.post('/register')
 async def register_user(data: RegisterUserModel):
-    pass
+    result = register_user_db(**data.model_dump())
+
+    if result:
+        return {'status': 1, 'message': result}
+
+    return {'status': 0, 'message': 'Пользователь с такой почтой уже есть'}
+
 
 @user_router.put('/change_info')
 async def change_user_info(data: EditUserModel):
     pass
 
 @user_router.get('/get_user')
-async def get_user(user_id: int):
-    pass
+async def get_user(user_id: int = 0):
+    if user_id == 0:
+        result = get_all_users_db()
+
+        return {'status': 1, 'message': result}
+
+    else:
+        result = get_exact_user_db(user_id)
+
+        return {'status': 1, 'message': result}
+
+
+
 
 
 
